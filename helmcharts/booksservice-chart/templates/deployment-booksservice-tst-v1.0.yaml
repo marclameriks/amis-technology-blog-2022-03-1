@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booksservice-v1.0
+  namespace: nl-amis-testing
+  labels:
+    app: booksservice
+    version: "1.0"
+    environment: testing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: booksservice
+      version: "1.0"
+      environment: testing
+  template:
+    metadata:
+      labels:
+        app: booksservice
+        version: "1.0"
+        environment: testing
+    spec:
+      containers:
+      - name: booksservice-v1-0-container
+        image: booksservice:v1.0
+        env:
+        - name: spring.profiles.active
+          value: "testing"
+        - name: spring.datasource.url
+          value: "jdbc:mysql://mysql-service.nl-amis-testing/test?allowPublicKeyRetrieval=true&useSSL=false"
+        ports:
+        - containerPort: 9091

@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: filebeat-clusterrolebinding
+  namespace: nl-amis-logging
+subjects:
+- kind: ServiceAccount
+  name: filebeat-serviceaccount
+  namespace: nl-amis-logging
+roleRef:
+  kind: ClusterRole
+  name: filebeat-clusterrole
+  apiGroup: rbac.authorization.k8s.io

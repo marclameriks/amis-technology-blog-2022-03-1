@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+  namespace: nl-amis-logging
+  labels:
+    app: elasticsearch
+    version: "7.0.0"
+    environment: logging
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
+      version: "7.0.0"
+      environment: logging
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+        version: "7.0.0"
+        environment: logging
+    spec:
+      containers:
+      - name: elasticsearch-container
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.0.0
+        env:
+        - name: discovery.type
+          value: single-node
+        ports:
+        - containerPort: 9200
+        volumeMounts:
+          - name: storage
+            mountPath: /data
+      volumes:
+        - name: storage
+          emptyDir: {}

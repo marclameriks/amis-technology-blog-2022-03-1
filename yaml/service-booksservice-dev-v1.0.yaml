@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: booksservice-v1-0-service
+  namespace: nl-amis-development
+  labels:
+    app: booksservice
+    version: "1.0"
+    environment: development
+spec:
+  selector:
+    app: booksservice
+    version: "1.0"
+    environment: development
+  type: NodePort
+  ports:
+  - protocol: TCP
+    nodePort: 30010
+    port: 9190
+    targetPort: 9090

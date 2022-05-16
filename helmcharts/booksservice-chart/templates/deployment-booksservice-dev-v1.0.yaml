@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booksservice-v1.0
+  namespace: nl-amis-development
+  labels:
+    app: booksservice
+    version: "1.0"
+    environment: development
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: booksservice
+      version: "1.0"
+      environment: development
+  template:
+    metadata:
+      labels:
+        app: booksservice
+        version: "1.0"
+        environment: development
+    spec:
+      containers:
+      - name: booksservice-v1-0-container
+        image: booksservice:v1.0
+        env:
+        - name: spring.profiles.active
+          value: "development"
+        ports:
+        - containerPort: 9090
